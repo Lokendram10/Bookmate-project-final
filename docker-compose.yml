@@ -1,6 +1,6 @@
 services: 
-web : 
-build : .
-ports : 
+web: 
+build: .
+ports: 
   - "80:80"
   restart: unless-stopped
