@@ -1,0 +1,25 @@
+pipeline{
+   agent { label 'loki' }
+       stages{
+          stage('Configure'){
+             steps{
+             echo"Cloning code from github repo"
+             git branch: 'main' , url: 'https://github.com/Lokendram10/Bookmate-project-final'
+             }
+          }
+               stage('Build'){
+             steps{
+                echo"Building image "
+                sh 'docker build -t bookmate .'
+             }
+          }
+             stage('Deploy'){
+             steps{
+                echo"Deploying bookmate"
+                sh 'docker compose up --build'
+             }
+          }
+
+
+   }
+}
