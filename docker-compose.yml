@@ -1,6 +1,6 @@
 services: 
 web : 
 build : .
-ports: 
+ports : 
   - "80:80"
   restart: unless-stopped
