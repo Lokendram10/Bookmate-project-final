@@ -22,7 +22,7 @@ stage('SonarQube Analysis') {
             sonar-scanner \
               -Dsonar.projectKey=bookmate \
               -Dsonar.sources=. \
-              -Dsonar.host.url=http://http://13.233.24.21/:9000 \
+              -Dsonar.host.url=http://13.233.24.21/:9000 \
               -Dsonar.login=$SONAR_AUTH_TOKEN
             '''
         }
