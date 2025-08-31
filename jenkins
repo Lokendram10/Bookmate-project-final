@@ -14,20 +14,21 @@ pipeline{
              }
           }
 
-stage('SonarQube Analysis') {
-    steps {
-        echo " Running SonarQube Code Analysis"
-        withSonarQubeEnv('admin') {
-            sh '''
-            sonar-scanner \
-              -Dsonar.projectKey=bookmate \
-              -Dsonar.sources=. \
-              -Dsonar.host.url=http://13.233.24.21/:9000 \
-              -Dsonar.login=$SONAR_AUTH_TOKEN
-            '''
+             stage('SonarQube Analysis') {
+            steps {
+                echo "🔎 Running SonarQube Code Analysis (via Docker)"
+                withSonarQubeEnv('admin') {
+                    sh '''
+                    docker run --rm \
+                      -e SONAR_HOST_URL=http://13.233.24.21:9000 \
+                      -e SONAR_LOGIN=$SONAR_AUTH_TOKEN \
+                      -v $(pwd):/usr/src \
+                      sonarsource/sonar-scanner-cli
+                    '''
+                }
+            }
         }
-    }
-}
+
 
              stage('Deploy'){
              steps{
