@@ -25,7 +25,7 @@ pipeline{
                      additionalArguments: '--scan ./',
                      odcInstallation: 'owasp',
                     )
-                     dependencyCheckPublisher: pattern: '**/dependency-check-report.xml'
+                     dependencyCheckPublisher pattern: '**/dependency-check-report.xml'
                       }
                  }
 
