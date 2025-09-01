@@ -24,11 +24,11 @@ pipeline{
                      dependencyCheck(
                      additionalArguments: '--scan ./',
                      odcInstallation: 'owasp',
+                    )
                      dependencyCheckPublisher: [pattern: '**/dependency-check-report.xml']
-    )
-}
+                      }
+                 }
 
-          }
                stage('Trivy fs scan'){
              steps{
                 echo "Trivy fs scan"
