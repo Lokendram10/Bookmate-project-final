@@ -21,8 +21,11 @@ pipeline{
                stage('Owasp Dependency Check'){
              steps{
                 echo "Owasp Dependency Check"
-                dependencyCheck AdditionalArguments: '--scan ./ ' , odcInstallation: 'owasp', dependencyCheckPublisher pattern: '**/dependency-check-report.xml'
-             }
+                dependencyCheck( additionalArguments: '--scan ./ ' ,
+                 odcInstallation: 'owasp', 
+                 dependencyCheckPublisher: [pattern: '**/dependency-check-report.xml']
+                 )
+             } 
           }
                stage('Trivy fs scan'){
              steps{
