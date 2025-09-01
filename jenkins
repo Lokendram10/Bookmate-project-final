@@ -1,7 +1,7 @@
 pipeline{
    agent any
    environment{
-       SONAR_HOME= tool"sonarq"
+       SONAR_HOME= tool"Sonar"
    }
        stages{
           stage('Configure'){
@@ -13,7 +13,7 @@ pipeline{
                stage('SonarQube Analysis'){
              steps{
                 echo"sonarqube analysis"
-                withSonarQubeEnv('sonarq') {
+                withSonarQubeEnv('Sonar') {
                      sh "${SONAR_HOME}/bin/sonar-scanner   -DsonarProjectName=Bookmate -Dsonar.projectKey=Bookmate "
                 }
              }
