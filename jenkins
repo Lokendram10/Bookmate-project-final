@@ -1,5 +1,8 @@
 pipeline{
    agent any
+   environment{
+       SONAR_HOME= tool"sonarq"
+   }
        stages{
           stage('Configure'){
              steps{
@@ -7,35 +10,35 @@ pipeline{
              git branch: 'main' , url: 'https://github.com/Lokendram10/Bookmate-project-final'
              }
           }
-               stage('Build'){
+               stage('SonarQube Analysis'){
              steps{
-                echo"Building image "
-                sh 'docker build -t bookmate .'
-             }
-          }
-
-             stage('SonarQube Analysis') {
-            steps {
-                echo "🔎 Running SonarQube Code Analysis (via Docker)"
-                withSonarQubeEnv('admin') {
-                    sh '''
-                    docker run --rm \
-                      -e SONAR_HOST_URL=http://13.233.24.21:9000 \
-                      -e SONAR_LOGIN=$SONAR_AUTH_TOKEN \
-                      -v $(pwd):/usr/src \
-                      sonarsource/sonar-scanner-cli
-                    '''
+                echo"sonarqube analysis"
+                withSonarQubeEnv('sonarq') {
+                     sh "${SONAR_HOME}/bin/sonar-scanner   -DsonarProjectName=Bookmate -Dsonar.projectKey=Bookmate "
                 }
-            }
-        }
-
-
-             stage('Deploy'){
-             steps{
-                echo"Deploying bookmate"
-                sh 'docker compose up -d --build'
              }
           }
+         //       stage('Build'){
+         //     steps{
+         //        echo"Building image "
+         //        sh 'docker build -t bookmate .'
+         //     }
+         //  }
+         //       stage('Build'){
+         //     steps{
+         //        echo"Building image "
+         //        sh 'docker build -t bookmate .'
+         //     }
+         //  }
+
+
+
+         //     stage('Deploy'){
+         //     steps{
+         //        echo"Deploying bookmate"
+         //        sh 'docker compose up -d --build'
+         //     }
+         //  }
 
 
    }
