@@ -18,28 +18,7 @@ pipeline{
                 }
              }
           }
-         //       stage('Build'){
-         //     steps{
-         //        echo"Building image "
-         //        sh 'docker build -t bookmate .'
-         //     }
-         //  }
-         //       stage('Build'){
-         //     steps{
-         //        echo"Building image "
-         //        sh 'docker build -t bookmate .'
-         //     }
-         //  }
-
-
-
-         //     stage('Deploy'){
-         //     steps{
-         //        echo"Deploying bookmate"
-         //        sh 'docker compose up -d --build'
-         //     }
-         //  }
-
+ 
 
    }
 }
