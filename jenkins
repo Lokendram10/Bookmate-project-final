@@ -41,7 +41,7 @@ pipeline{
              stage('Deploy'){
              steps{
                 echo "Deploying bookmate"
-                sh 'docker compose up -d --build'
+                sh 'docker-compose up -d --build'
              }
           }
 
