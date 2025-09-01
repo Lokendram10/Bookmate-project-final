@@ -18,27 +18,27 @@ pipeline{
                 }
              }
           }
-         //       stage('Build'){
-         //     steps{
-         //        echo"Building image "
-         //        sh 'docker build -t bookmate .'
-         //     }
-         //  }
-         //       stage('Build'){
-         //     steps{
-         //        echo"Building image "
-         //        sh 'docker build -t bookmate .'
-         //     }
-         //  }
+               stage('Owasp Dependency Check'){
+             steps{
+                echo "Owasp Dependency Check"
+                dependencyCheck AdditionalArguments: '--scan ./ ' , odcInstallation: 'owasp', dependencyCheckPublisher pattern: '**/dependency-check-report.xml'
+             }
+          }
+               stage('Trivy fs scan'){
+             steps{
+                echo "Trivy fs scan"
+                sh 'trivy fs  --severity HIGH,CRITICAL  --format table --output trivy-fs-report.txt . || true'
+             }
+          }
 
 
 
-         //     stage('Deploy'){
-         //     steps{
-         //        echo"Deploying bookmate"
-         //        sh 'docker compose up -d --build'
-         //     }
-         //  }
+             stage('Deploy'){
+             steps{
+                echo "Deploying bookmate"
+                sh 'docker compose up -d --build'
+             }
+          }
 
 
    }
